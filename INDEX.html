@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G-XJKPPDTT64"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XJKPPDTT64');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joen' Di - Tienda Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3ebe1;          /* Fondo general */
+    --card: #aa773d;        /* Tarjetas */
+    --brown-1: #5c3d2e;     /* Texto principal */
+    --brown-2: #a1866f;     /* Texto secundario / hover */
+    --accent: #d9b382;      /* Botones y destacados */
+    --shadow: 0 8px 30px rgba(92,61,46,0.1);
+    font-family: 'Inter', sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--brown-1);-webkit-font-smoothing:antialiased;line-height:1.5}
+  a{text-decoration:none;color:inherit}
+
+  /* Navbar */
+  nav{
+    width:100%;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px 20px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+    position:sticky;
+    top:0;
+    z-index:100;
+  }
+  nav .logo{
+    font-weight:700;
+    font-size:24px;
+    color:var(--brown-1);
+  }
+  nav ul{
+    display:flex;
+    gap:20px;
+    list-style:none;
+  }
+  nav ul li a{
+    color:var(--brown-1);
+    font-weight:500;
+    transition:0.3s;
+  }
+  nav ul li a:hover{
+    color:var(--accent);
+  }
+
+  /* Hero */
+  .hero{
+    width:100%;height:360px;margin-bottom:60px;
+    background:url('img/verduras1.jpg') center/cover no-repeat;
+    border-radius:12px;position:relative;
+    display:flex;justify-content:center;align-items:center;
+    box-shadow:0 6px 20px rgba(92,61,46,0.1);
+  }
+  .hero-text{
+    position:absolute;text-align:center;
+    color:white;text-shadow:1px 1px 10px rgba(0,0,0,0.4)
+  }
+  .hero-text h2{font-size:42px;font-weight:700;margin-bottom:12px}
+  .hero-text p{font-size:20px;color:rgba(255,255,255,0.9)}
+
+  /* Productos */
+  main{padding:0 20px 60px 20px}
+  .controls{display:flex;gap:12px;align-items:center;margin-bottom:25px;flex-wrap:wrap}
+  .search{flex:1;display:flex;align-items:center;background:white;padding:10px 15px;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,0.05)}
+  .search input{border:0;outline:0;font-size:15px;flex:1;background:transparent;color:var(--brown-1)}
+  .filter .chip{cursor:pointer;padding:8px 16px;border-radius:20px;background:white;border:1px solid rgba(92,61,46,0.15);font-size:14px;color:var(--brown-1);transition:0.3s}
+  .filter .chip.active, .filter .chip:hover{background:var(--accent);color:white;border-color:var(--accent);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+  }
+  .card{
+    background:white;padding:20px;border-radius:14px;
+    border:1px solid rgba(92,61,46,0.05);
+    box-shadow:var(--shadow);
+    display:flex;flex-direction:column;align-items:center;transition:0.3s;
+  }
+  .card:hover{transform:translateY(-5px)}
+  .card img{
+    width:100px;height:100px;border-radius:12px;object-fit:cover;margin-bottom:12px;
+  }
+  .meta{flex:1;text-align:center}
+  .meta h3{margin:0;font-size:18px;color:var(--brown-1)}
+  .meta p{margin:6px 0 10px;color:var(--brown-2);font-size:14px}
+  .price{font-weight:800;color:var(--brown-1);margin-bottom:10px}
+  .add{
+    background:var(--accent);color:white;padding:10px 14px;border-radius:12px;border:0;
+    cursor:pointer;font-weight:600;transition:0.3s;
+  }
+  .add:hover{background:var(--brown-1)}
+
+  /* Carrito */
+  .cart-fab{
+    position:fixed;right:25px;bottom:25px;
+    background:var(--brown-1);color:white;padding:14px 20px;border-radius:999px;
+    box-shadow:0 10px 30px rgba(92,61,46,0.18);
+    display:flex;gap:12px;align-items:center;cursor:pointer;font-weight:700;
+    transition:0.3s;
+  }
+  .cart-fab:hover{transform:scale(1.05)}
+  .cart-panel{
+    position:fixed;right:20px;bottom:80px;width:380px;max-height:70vh;
+    background:white;border-radius:16px;box-shadow:0 18px 50px rgba(92,61,46,0.12);
+    overflow:auto;padding:20px;display:none;z-index:15;
+  }
+  .cart-panel.open{display:block}
+  .cart-item{
+    display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed rgba(92,61,46,0.1)
+  }
+  .cart-item div:first-child{
+    width:50px;height:50px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--accent);color:white;font-weight:700;font-size:18px;
+  }
+
+  button.btn{background:var(--accent);color:white;padding:10px 14px;border-radius:12px;border:0;cursor:pointer;transition:0.3s;font-weight:600}
+  button.btn:hover{background:var(--brown-1)}
+  button.ghost{background:none;color:var(--brown-1);border:1px solid var(--brown-1)}
+  button.ghost:hover{background:var(--brown-1);color:white}
+
+  @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}.cart-panel{right:12px;left:12px;width:auto} nav ul{gap:12px}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr} nav ul{flex-direction:column;position:absolute;top:60px;right:20px;background:white;padding:10px;display:none;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1)} nav ul.show{display:flex}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Joen' Di</div>
+  <ul>
+    <li>Gracias por preferirnos!!!</li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-text">
+    <h2>Los mejores productos naturales al alcance de tu mano!!!</h2>
+  </div>
+</div>
+
+<main class="container" id="productos">
+  <div class="controls">
+    <div class="search">🔍 <input id="search" placeholder="Buscar productos..."></div>
+    <div class="filter">
+      <span class="chip active" data-cat="todos">Todos</span>
+      <span class="chip" data-cat="verduras">Verduras</span>
+      <span class="chip" data-cat="frutas">Frutas</span>
+      <span class="chip" data-cat="lacteos">Lácteos</span>
+      <span class="chip" data-cat="condimentos">Condimentos</span>
+    </div>
+  </div>
+  <section class="grid" id="grid"></section>
+</main>
+
+<div class="cart-fab" id="fab">🛒 <span id="cart-count">0</span></div>
+<aside class="cart-panel" id="cartPanel">
+  <h3>Tu compra 😊</h3>
+  <div id="cartList"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+    <strong>Total:</strong>
+    <strong id="cartTotal">$0.00</strong>
+  </div>
+  <div style="margin-top:12px;display:flex;gap:10px">
+    <button class="btn" id="checkout">Pagar</button>
+    <button class="btn ghost" id="vaciar">Vaciar</button>
+  </div>
+</aside>
+
+<script>
+const productos=[
+  {id:1,nombre:'Manzana',cat:'frutas',precio:120},
+  {id:2,nombre:'Banana',cat:'frutas',precio:90},
+  {id:3,nombre:'Lechuga',cat:'verduras',precio:70},
+  {id:4,nombre:'Tomate',cat:'verduras',precio:85},
+  {id:5,nombre:'Leche',cat:'lacteos',precio:180},
+  {id:6,nombre:'Aceite',cat:'condimentos',precio:650},
+  {id:7,nombre:'Zanahoria',cat:'verduras',precio:60},
+  {id:8,nombre:'Pera',cat:'frutas',precio:110},
+  {id:9,nombre:'Queso',cat:'lacteos',precio:420},
+  {id:10,nombre:'Cebolla',cat:'verduras',precio:50},
+  {id:11,nombre:'Pimiento',cat:'verduras',precio:95},
+  {id:12,nombre:'Naranja',cat:'frutas',precio:100},
+  {id:13,nombre:'Mandarina',cat:'frutas',precio:95},
+  {id:14,nombre:'Yogur',cat:'lacteos',precio:150},
+  {id:15,nombre:'Manteca',cat:'lacteos',precio:250},
+  {id:16,nombre:'Sal',cat:'condimentos',precio:120},
+  {id:17,nombre:'Azúcar',cat:'condimentos',precio:80},
+  {id:18,nombre:'Ajo',cat:'condimentos',precio:40},
+  {id:19,nombre:'Pepino',cat:'verduras',precio:70},
+  {id:20,nombre:'Durazno',cat:'frutas',precio:130},
+  {id:21,nombre:'Frutilla',cat:'frutas',precio:180},
+  {id:22,nombre:'Brócoli',cat:'verduras',precio:110},
+  {id:23,nombre:'Espinaca',cat:'verduras',precio:65},
+  {id:24,nombre:'Crema',cat:'lacteos',precio:200},
+  {id:25,nombre:'Vinagre',cat:'condimentos',precio:150},
+  {id:26,nombre:'Aceitunas',cat:'condimentos',precio:220},
+  {id:27,nombre:'Melón',cat:'frutas',precio:160},
+  {id:28,nombre:'Sandía',cat:'frutas',precio:140},
+  {id:29,nombre:'Cebollín',cat:'verduras',precio:55},
+  {id:31,nombre:'Mostaza',cat:'condimentos',precio:180},
+  {id:32,nombre:'Albahaca',cat:'condimentos',precio:90},
+  {id:33,nombre:'Huevo',cat:'lacteos',precio:190},
+  {id:34,nombre:'Repollo',cat:'verduras',precio:75},
+  {id:35,nombre:'Kiwi',cat:'frutas',precio:135},
+  {id:36,nombre:'Papas',cat:'verduras',precio:80},
+  {id:37,nombre:'Limón',cat:'frutas',precio:85},
+  {id:39,nombre:'Pasta',cat:'condimentos',precio:250},
+  {id:40,nombre:'Cilantro',cat:'verduras',precio:60}
+];
+
+const grid=document.getElementById('grid');
+const searchInput=document.getElementById('search');
+const chips=document.querySelectorAll('.filter .chip');
+const cart={};
+
+function emojiFor(cat){ 
+  const map={frutas:'🍎',verduras:'🥬',lacteos:'🧀',condimentos:'🫒'}; 
+  return map[cat]||'🍏'; 
+}
+
+function render(products){
+  grid.innerHTML='';
+  products.forEach(p=>{
+    const card=document.createElement('article');
+    card.className='card';
+    card.innerHTML=`
+      <img src="img/${p.nombre.replace(/\s+/g,'').toLowerCase()}.jpg" alt="${p.nombre}" onerror="this.src='https://via.placeholder.com/100?text=${p.nombre.charAt(0)}'">
+      <div class="meta">
+        <h3>${p.nombre}</h3>
+        <p>Categoría: ${p.cat}</p>
+        <div class="price">$${p.precio.toFixed(2)}</div>
+        <button class="add" data-id="${p.id}">Agregar</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterAndSearch(){
+  const q=searchInput.value.trim().toLowerCase();
+  const active=document.querySelector('.filter .chip.active')?.dataset.cat||'todos';
+  let res=productos.filter(p=>active==='todos'||p.cat===active);
+  if(q) res=res.filter(p=>p.nombre.toLowerCase().includes(q)||p.cat.includes(q));
+  render(res);
+}
+
+render(productos);
+
+searchInput.addEventListener('input',filterAndSearch);
+chips.forEach(c=>{
+  c.addEventListener('click',()=>{
+    chips.forEach(x=>x.classList.remove('active'));
+    c.classList.add('active');
+    filterAndSearch();
+  });
+});
+
+document.addEventListener('click',e=>{
+  const id=e.target.dataset?.id;
+  if(id){
+    const p=productos.find(x=>x.id==id);
+    cart[id]=cart[id]||{...p,qty:0};
+    cart[id].qty++;
+    updateCartUI();
+  }
+});
+
+const fab=document.getElementById('fab');
+const panel=document.getElementById('cartPanel');
+fab.addEventListener('click',()=>panel.classList.toggle('open'));
+
+function updateCartUI(){
+  const count=Object.values(cart).reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cart-count').textContent=count;
+  const list=document.getElementById('cartList');
+  list.innerHTML='';
+  let total=0;
+  Object.values(cart).forEach(item=>{
+    total+=item.precio*item.qty;
+    const it=document.createElement('div');
+    it.className='cart-item';
+    it.innerHTML=`
+      <div>${item.nombre.charAt(0)}</div>
+      <div style="flex:1"><div style="font-weight:700">${item.nombre}</div>
+      <div style="font-size:13px;color:var(--brown-2)">$${item.precio.toFixed(2)} x ${item.qty}</div></div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button data-op="+" data-id="${item.id}">+</button>
+        <button data-op="-" data-id="${item.id}">-</button>
+      </div>
+    `;
+    list.appendChild(it);
+  });
+  document.getElementById('cartTotal').textContent=`$${total.toFixed(2)}`;
+}
+
+document.getElementById('cartPanel').addEventListener('click',e=>{
+  const id=e.target.dataset?.id; const op=e.target.dataset?.op;
+  if(id && op){
+    if(op=='+') cart[id].qty++;
+    if(op=='-'){ cart[id].qty--; if(cart[id].qty<=0) delete cart[id]; }
+    updateCartUI();
+  }
+});
+
+document.getElementById('vaciar').addEventListener('click',()=>{for(const k in cart) delete cart[k];updateCartUI();});
+document.getElementById('checkout').addEventListener('click',()=>alert('Gracias por su compra (demo).'));
+</script>
+</body>
+</html>
